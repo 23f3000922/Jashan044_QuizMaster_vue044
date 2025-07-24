@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Monthly Quiz Report</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container my-5">
+        <h1 class="text-center text-primary mb-4">Monthly Quiz Report</h1>
+
+        <p class="fs-5">Hello <strong>{{ data['name'] }}</strong>,</p>
+
+        {% if data['quiz_details'] %}
+        <p class="fs-6">Here is your quiz performance for this month:</p>
+
+        <table class="table table-bordered table-striped">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Quiz Name</th>
+                    <th>Subject</th>
+                    <th>Chapter</th>
+                    <th>Date Attempted</th>
+                    <th>Score</th>
+                    <th>Reattempted</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for quiz in data['quiz_details'] %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ quiz.quiz_name }}</td>
+                    <td>{{ quiz.subject_name }}</td>
+                    <td>{{ quiz.chapter_name }}</td>
+                    <td>{{ quiz.date_attempted }}</td>
+                    <td>{{ quiz.score }}</td>
+                    <td>{{ quiz.reattempted }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="mt-4">
+            <p><strong>Total Quizzes Taken:</strong> {{ data['statistics']['total_quizzes'] }}</p>
+            <p><strong>Total Score:</strong> {{ data['statistics']['total_score'] }}</p>
+        </div>
+        {% else %}
+        <div class="alert alert-info mt-4">
+            <p>You have not attempted any quizzes this month.</p>
+        </div>
+        {% endif %}
+
+        <p class="mt-5 text-muted">Thank you for being a learner on our platform. Keep growing!</p>
+        <footer class="text-center mt-4">
+            <p>&copy; 2025 QuizMaster | Powered by IITM</p>
+        </footer>
+    </div>
+</body>
+</html>
